@@ -17,7 +17,7 @@ def Convert(time_string):
     elif ':' in time_string:
         splitter = ':'            
     else:
-        return(time_string)      #<---------------stops the function and prints the results
+        return(time_string)      
     (mins,secs)= time_string.split(splitter)
     return(mins + '.' + secs)
 
@@ -37,7 +37,6 @@ print(clean_james)
 # below I'm trying to call the Detwin method to remove duplicates.
 unique_james=([Detwin(siblings) for siblings in clean_james])
 print(unique_james)
-
 #===============================================================================
 # for each_unit in clean_james:
 #     if each_unit not in unique_james:    #<---Trying to turn this into a method
