@@ -1,7 +1,7 @@
 import os
 import sys
 
-# This should be gathering lists from inside lists and printing them one line at a time with optional indents
+# This is gathering lists from inside lists and printing them one line at a time with optional indents
 def print_lol(the_list, indent=False, level=0,fh=sys.stdout):
     for each_item in the_list:
         if isinstance(each_item, list):
@@ -10,7 +10,7 @@ def print_lol(the_list, indent=False, level=0,fh=sys.stdout):
             if indent:
                 for tab_stop in range(level):
                     print("\t", end='',file=fh)
-                    print(each_item,file=fh )
+                print(each_item,file=fh )
 
 man=[]
 other=[]
