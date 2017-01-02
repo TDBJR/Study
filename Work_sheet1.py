@@ -22,7 +22,7 @@ def Convert(time_string):
     return(mins + '.' + secs)
 
 def Detwin(womb):
-    # this is supposed to be removing duplicates from the list, but is printing None for each list item instead
+    # this is supposed to be removing duplicates from the list, but isn't
     fetus=[]
     for twins in womb:
         if twins not in fetus:
