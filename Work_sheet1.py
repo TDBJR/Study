@@ -31,7 +31,7 @@ def Detwin(womb):
             
 #This stuff is fine
 james=OpenXL('c:/PHF/james.txt')  # (File contents) 2-34,3:21,2.34,2.45,3.01,2:01,2:01,3:10,2-22
-clean_james=set(sorted([Convert(time) for time in james]))
+clean_james=sorted([Convert(time) for time in james])
 print(clean_james)
 #=========================================================================
 # below I'm trying to call the Detwin method to remove duplicates.
