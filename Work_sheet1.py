@@ -11,7 +11,7 @@ def OpenXL(data):
 
 
 def Convert(time_string):
-    # this is spliting the string at the - and : characters them replacing them together with a . instead
+    # this is spliting the string at the - and : characters then replacing them together with a "." instead
     if '-' in time_string:
         splitter = '-'
     elif ':' in time_string:
