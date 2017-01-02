@@ -27,7 +27,7 @@ def Detwin(womb):
     for twins in womb:
         if twins not in fetus:
             fetus.append(twins)
-            #print(fetus)
+            return(fetus)
             
 #This stuff is fine
 james=OpenXL('c:/PHF/james.txt')  # (File contents) 2-34,3:21,2.34,2.45,3.01,2:01,2:01,3:10,2-22
