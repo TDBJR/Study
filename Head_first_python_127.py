@@ -14,7 +14,7 @@ def print_lol(the_list, indent=False, level=0,fh=sys.stdout):
 
 man=[]
 other=[]
-#this should be opening the text.txt and seperating each line at each : to make two lists
+#this is opening the text.txt and seperating each line at each : to make two lists
 #then re-assigning those two lists to the man and other lists
 with open('c:/text/text.txt') as data:                                                 
     for each_line in data:
@@ -32,8 +32,8 @@ with open('c:/text/text.txt') as data:
 try:
     data2=open('c:/text/man.txt','w')
     data3=open('c:/text/other.txt','w') 
-    print_lol(man,file=data2)         #<----I'm pretty sure it has something to do
-    print_lol(other,file=data3)       #<----with these two lines
+    print_lol(man,file=data2)         #<---print_lol is writing the information to the txt files
+    print_lol(other,file=data3)       
     
 except IOError as err:
     print('file error'+err)
