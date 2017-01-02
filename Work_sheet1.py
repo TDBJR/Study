@@ -22,20 +22,20 @@ def Convert(time_string):
     return(mins + '.' + secs)
 
 def Detwin(womb):
-    # this is supposed to be removing duplicates from the list, but isn't
+    # this is removing duplicates from the list
     fetus=[]
     for twins in womb:
         if twins not in fetus:
             fetus.append(twins)
-            return(fetus)
+    return(fetus)
             
-#This stuff is fine
+
 james=OpenXL('c:/PHF/james.txt')  # (File contents) 2-34,3:21,2.34,2.45,3.01,2:01,2:01,3:10,2-22
 clean_james=sorted([Convert(time) for time in james])
 print(clean_james)
 #=========================================================================
 # below I'm trying to call the Detwin method to remove duplicates.
-unique_james=([Detwin(siblings) for siblings in clean_james])
+unique_james=Detwin(clean_james)
 print(unique_james)
 #===============================================================================
 # for each_unit in clean_james:
