@@ -36,7 +36,7 @@ mikey=OpenXL("c:/PHF/mikey2.txt")
 sarah=OpenXL("c:/PHF/sarah2.txt")
 
 (julie_name, julie_dob) = julie.pop(0), julie.pop(0)  # .pop(0) Will remove the first item from a list and 'populate' the variable
-(mikey_name, mikey_dob) = mikey.pop(0), mikey.pop(0)  # you asign to it with the removed variable.
+(mikey_name, mikey_dob) = mikey.pop(0), mikey.pop(0)  # you asign to it with the removed data.
 (james_name, james_dob) = james.pop(0), james.pop(0)
 (sarah_name, sarah_dob) = sarah.pop(0), sarah.pop(0)
 
