@@ -1,0 +1,108 @@
+<!-- -->
+
+<!doctype html>
+<html>
+
+    <head>
+        <title>jQuery 2</title>
+        <meta charset="utf-8">
+    <!--    <link rel="stylesheet" href="../css/styles.css"> -->
+        <style media="screen">
+            .textBox{
+                background-color: gray;
+                color: white;
+            }
+        </style>
+
+    </head>
+
+    <body >
+
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td>
+                    <input id="firstName" class="inputRequired">
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>
+                    <input id="lastName" class="inputRequired">
+                </td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>
+                    <select id="ddlCity" class="inputRequired" >
+                        <option value="Select">Select</option>
+                        <option value="New York">New York</option>
+                        <option value="London">London</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Sydney"> Sydney</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Favorite Color</td>
+                <td>
+                    <input type="radio" name="color" id="red" value="Red">Red
+                    <input type="radio" name="color" id="green" value="Green">Green
+                    <input type="radio" name="color" id="blue" value="Blue">Blue
+                </td>
+            </tr>
+            <tr>
+                <td>Contact Method</td>
+                <td>
+                    <input id="chkBoxEmail" type="checkbox" class="inputRequired" value="Email">Email
+                    <input id="chkBoxPhone" type="checkbox" class="inputRequired" value="Phone">Phone
+                    <input id="chkBoxMedia" type="checkbox" class="inputRequired" value="Social Media">Social Media
+                </td>
+            </tr>
+            <tr>
+                <td>Comments</td>
+                <td>
+                    <textarea id="textComments" class="inputRequired"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="btnSubmit" value="Submit">
+                </td>
+                <td>
+                    <div id="result">
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+
+
+        <!-- Load the jQuery CDN fist -->
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <!-- If the CDN fails to load, load the local version below -->
+<script> window.jQuery || document.write("<script src='../js/jquery-3.1.1.js'><\/script>")</script>
+<!-- Setting our Js/Query script file location to write code in below-->
+<script >
+$(function(){
+
+    let result ='';
+    $(":input").change(function(){
+        if (result == '') {
+            result = $(this).val();
+        } else {
+            result += ', ' + $(this).val();
+        }
+        $('.inputRequired').html(result);
+
+    });
+
+});
+
+</script>
+    </body>
+
+</html>
