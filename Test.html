@@ -1,108 +1,168 @@
-<!-- -->
-
 <!doctype html>
 <html>
 
-    <head>
-        <title>jQuery 2</title>
-        <meta charset="utf-8">
+<head>
+
+    <title>jQuery 2</title>
+    <meta charset="utf-8">
     <!--    <link rel="stylesheet" href="../css/styles.css"> -->
-        <style media="screen">
-            .textBox{
-                background-color: gray;
-                color: white;
-            }
-        </style>
+    <style media="screen">
+        #heading {
+            text-align: center;
+            font-size: 30px;
+            position: relative;
+            margin-top: 100px;
+        }
+        #data {
+            font-size: 30px;
+            text-align:center;
+            margin-left: 750px;
+            margin-top: 50px;
+        }
+        body {
+            background-size: cover;
 
-    </head>
+        }
+    </style>
 
-    <body >
+</head>
 
-        <table>
-            <tr>
-                <td>First Name</td>
-                <td>
-                    <input id="firstName" class="inputRequired">
-                </td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td>
-                    <input id="lastName" class="inputRequired">
-                </td>
-            </tr>
-            <tr>
-                <td>City</td>
-                <td>
-                    <select id="ddlCity" class="inputRequired" >
-                        <option value="Select">Select</option>
-                        <option value="New York">New York</option>
-                        <option value="London">London</option>
-                        <option value="Chennai">Chennai</option>
-                        <option value="Sydney"> Sydney</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Favorite Color</td>
-                <td>
-                    <input type="radio" name="color" id="red" value="Red">Red
-                    <input type="radio" name="color" id="green" value="Green">Green
-                    <input type="radio" name="color" id="blue" value="Blue">Blue
-                </td>
-            </tr>
-            <tr>
-                <td>Contact Method</td>
-                <td>
-                    <input id="chkBoxEmail" type="checkbox" class="inputRequired" value="Email">Email
-                    <input id="chkBoxPhone" type="checkbox" class="inputRequired" value="Phone">Phone
-                    <input id="chkBoxMedia" type="checkbox" class="inputRequired" value="Social Media">Social Media
-                </td>
-            </tr>
-            <tr>
-                <td>Comments</td>
-                <td>
-                    <textarea id="textComments" class="inputRequired"></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" id="btnSubmit" value="Submit">
-                </td>
-                <td>
-                    <div id="result">
+<body style="">
 
-                    </div>
-                </td>
-            </tr>
-        </table>
+<div id="heading">
+    <h1>Your Local Weather </h1>
+    <h2>Todays Forcast</h2>
+</div>
+<hr style='width:70%; height:2px; background: black;'>
+
+<div id="data" style='background: white; width: 450px; position: absolute; height: 100px; padding:10px; opacity: 0.7; border-radius: 10%; box-shadow: 10px 10px 5px #888888;' ></div>
+<table style="opacity: 1; position: absolute;" id="data">
+    <tr>
+
+    </tr>
+    <tr  >
+        <td id="city" ></td>
+        <td id="state"></td>
+        <td id="country"></td><td></td>
+        <td id="weatherIcon"></td>
+    </tr>
+    <tr>
+        <div id="convertTemp">
+        <td id="temp"></td>
+        </div>
+        <td id="clouds"></td><td></td><td></td>
+        <td id="weather"></td>
+    </tr>
+</table>
+</div>
 
 
 
 
 
-        <!-- Load the jQuery CDN fist -->
+
+  <!-- Load the jQuery CDN fist -->
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-        <!-- If the CDN fails to load, load the local version below -->
+  <!-- If the CDN fails to load, load the local version below -->
 <script> window.jQuery || document.write("<script src='../js/jquery-3.1.1.js'><\/script>")</script>
 <!-- Setting our Js/Query script file location to write code in below-->
 <script >
-$(function(){
 
-    let result ='';
-    $(":input").change(function(){
-        if (result == '') {
-            result = $(this).val();
-        } else {
-            result += ', ' + $(this).val();
+  $(function(){
+let tempSwitch = true
+    $.ajax({
+        url: 'http://ip-api.com/json',
+        success: function(location){// the json object will be held as a object in the function you can pass it by any name not just data
+
+            lat = location.lat;
+            lon = location.lon;
+            state = location.region;
+            city = location.city;
+            api = 'http://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon +'&appid=94b1de1399a6db72fdf80f40c2abda40';
+
+            $.ajax({
+                url: api,
+                success: function(data){
+                    country = data.sys.country
+                    kTemp = data.main.temp;
+                    fTemp =  ((kTemp) * (9/5) - 459.67).toFixed(1)+" &#8457;";
+                    cTemp =  (kTemp - 273).toFixed(1) + " &#8451";
+                    clouds = data.clouds.all;
+                    weather = data.weather[0].description;
+                    weatherIcon = data.weather[0].icon;
+                    weatherHttpIcon = 'http://openweathermap.org/img/w/'+weatherIcon+'.png';
+                    wind = (data.wind.speed * 2.237).toFixed(1)+" mph";
+                    tempDiv = $("#temp");
+
+                    $("#city").html("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+city);
+                    $("#state").text(state);
+                    $("#country").text(country);
+                    tempDiv.html(fTemp);
+                    $("#clouds").text(clouds+ "% cloudy");
+                    $("#weather").text(weather);
+                    $("#weatherIcon").html('<img src="' + weatherHttpIcon + '">')
+
+                    tempDiv.hover(function() {
+                        $(this).css('border', 'solid 1px #333');
+                    }, function() {
+                        $(this).css('border', '');
+                    });
+
+                    tempDiv.on('click', function() {
+                        if (tempSwitch) {
+                            tempDiv.html(cTemp);
+                            tempSwitch = false;
+                        }
+                        else {
+                            tempDiv.html(fTemp);
+                            tempSwitch = true;
+                        }
+                    });
+
+                    switch(weatherIcon){
+                        case'50n':
+                        case"50d":
+                            $("body").css('background-image', 'url(http://retouchthesky.com/wp-content/uploads/2013/10/IMG_4834.jpg)')
+                            break;
+                        case"02d":
+                        case"02n":
+                            $("body").css('background-image', 'url(http://orig15.deviantart.net/314c/f/2013/105/9/f/cloudy_sky_stock_by_naturalhorses-d61stqm.jpg)')
+                            break;
+                        case"01d":
+                        case"01n":
+                            $("body").css('background-image', 'url(http://www.clipartkid.com/images/445/blue-sky-ash-s-machiavellian-bloggery-tHG5ib-clipart.jpg)')
+                            break;
+                        case"03d":
+                        case"03n":
+                        case"04d":
+                        case"04n":
+                            $("body").css('background-image', 'url(http://www.quotemaster.org/images/b1/b14da5305ce7215f45954e7d8fc6a1df.jpg)')
+                            break;
+                        case"09d":
+                        case"09n":
+                        case"10d":
+                        case"10n":
+                            $("body").css('background-image', 'url(https://s-media-cache-ak0.pinimg.com/originals/d1/62/04/d16204b312f12ee998d70aadd37f938f.jpg)')
+                            break;
+                        case"10d":
+                        case"10n":
+                            $("body").css('background-image', 'url(http://prod-filesbucket-7hmmorphht20.s3-ap-southeast-2.amazonaws.com/styles/nova_hero/s3/article/thumbnail/gettyimages-485200179.jpg?itok=SPzEJLZT)')
+                            break;
+                        case"10d":
+                        case"10n":
+                            $("body").css('background-image', 'url(https://www.jpl.nasa.gov/images/earth/20170216/snow20170216.jpg)')
+                            break;
+
+                    }
+
+                }
+            });
         }
-        $('.inputRequired').html(result);
-
     });
 
-});
 
+});
 </script>
-    </body>
+</body>
 
 </html>
